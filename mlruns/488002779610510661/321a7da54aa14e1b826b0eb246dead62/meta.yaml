@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/321a7da54aa14e1b826b0eb246dead62/artifacts
+end_time: 1783709908352
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 321a7da54aa14e1b826b0eb246dead62
+run_name: spiffy-dolphin-339
+run_uuid: 321a7da54aa14e1b826b0eb246dead62
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783709906935
+status: 3
+tags: []
+user_id: meghana_p

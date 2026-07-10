@@ -1,0 +1,8 @@
+stages:
+  train:
+    cmd: python -m src.train
+    deps:
+      - data/heart_disease.csv
+      - src/train.py
+    outs:
+      - models/model.joblib
