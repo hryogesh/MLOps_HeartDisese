@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+.env
+.mlflow/
+artifacts/
+models/
+.pytest_cache/
+.DS_Store
