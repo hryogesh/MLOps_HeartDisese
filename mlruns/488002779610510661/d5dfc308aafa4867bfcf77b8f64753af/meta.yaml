@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/d5dfc308aafa4867bfcf77b8f64753af/artifacts
+end_time: 1783769162119
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: d5dfc308aafa4867bfcf77b8f64753af
+run_name: unequaled-bat-775
+run_uuid: d5dfc308aafa4867bfcf77b8f64753af
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783769160841
+status: 3
+tags: []
+user_id: meghana_p

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: heart-disease-api
-          image: heart-disease-api:latest
+          image: ${IMAGE_API}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
@@ -24,6 +24,7 @@ kind: Service
 metadata:
   name: heart-disease-api
 spec:
+  type: LoadBalancer
   selector:
     app: heart-disease-api
   ports:
@@ -46,7 +47,7 @@ spec:
     spec:
       containers:
         - name: heart-disease-streamlit
-          image: heart-disease-streamlit:latest
+          image: ${IMAGE_STREAMLIT}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8501
@@ -56,6 +57,7 @@ kind: Service
 metadata:
   name: heart-disease-streamlit
 spec:
+  type: LoadBalancer
   selector:
     app: heart-disease-streamlit
   ports:

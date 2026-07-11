@@ -25,27 +25,26 @@ This repository implements a production-style MLOps workflow for predicting hear
 - config - YAML configuration
 
 ## Assignment task coverage
-the  flow and covers the required execution steps:
+This repository implements the full assignment workflow with end-to-end support for data ingestion, model development, deployment, and monitoring.
 
-- [x] Task 1 — Data acquisition and exploratory data analysis
-- [x] Task 2 — Feature engineering and model development
-- [x] Task 3 — Experiment tracking with MLflow
-- [x] Task 4 — Model packaging and reproducibility
-- [x] Task 5 — CI/CD and automated testing
-- [x] Task 6 — Containerization with Docker
-- [x] Task 7 — Production deployment using Kubernetes
-- [x] Task 8 — Monitoring and logging
+- [x] Task 1 — Data acquisition, validation, cleaning, and exploratory analysis
+- [x] Task 2 — Feature engineering, model training, evaluation, and comparison
+- [x] Task 3 — Experiment tracking and MLflow logging
+- [x] Task 4 — Model packaging, serialization, reproducibility, and inference serving via FastAPI
+- [x] Task 5 — CI/CD readiness with automated linting and pytest test coverage
+- [x] Task 6 — Containerization for both API and Streamlit demo apps using Docker
+- [x] Task 7 — Local Kubernetes deployment support for API and Streamlit
+- [x] Task 8 — Monitoring and logging with Prometheus and Grafana
 
 ## End-to-end run guide for the assignment tasks (1 to 8)
 
-### 1. Setup environment
+### Task 1 — Setup environment and dataset acquisition
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### Download and clean the dataset
 If `data/heart_disease.csv` is not present, run the download helper with the archive located at `../Downloads/heart+disease.zip`:
 ```bash
 python scripts/download_dataset.py
@@ -68,7 +67,7 @@ Optional EDA report:
 python scripts/eda_report.py
 ```
 
-### 3. Task 2 — Feature engineering and model development
+### Task 2 — Feature engineering and model development
 ```bash
 python - <<'PY'
 from src.data.load_data import load_dataset
@@ -84,7 +83,7 @@ print(comparison['results'])
 PY
 ```
 
-### 4. Task 3 — Experiment tracking with MLflow
+### Task 3 — Experiment tracking with MLflow
 ```bash
 python -m src.train
 mlflow ui --host 127.0.0.1 --port 5000
@@ -93,7 +92,7 @@ mlflow ui --host 127.0.0.1 --port 5000
 Then open:
 - http://127.0.0.1:5000
 
-### 5. Task 4 — Model packaging and reproducibility
+### Task 4 — Model packaging and reproducibility
 ```bash
 python - <<'PY'
 from src.models.predict import predict
@@ -103,12 +102,12 @@ print(result)
 PY
 ```
 
-### 6. Task 5 — CI/CD and automated testing
+### Task 5 — CI/CD and automated testing
 ```bash
 pytest -q
 ```
 
-### 7. Task 6 — Containerization with Docker
+### Task 6 — Containerization with Docker
 ```bash
 docker compose -f docker/docker-compose.yml up --build
 ```
@@ -117,13 +116,52 @@ Then open:
 - http://127.0.0.1:8000/docs for the Swagger UI
 - http://127.0.0.1:8000/health for the health check endpoint
 
-### 8. Task 7 — Production deployment
-The Kubernetes deployment manifest is available in [deployment.yaml](deployment.yaml).
+### Task 7 — Local end-to-end deployment
+Use the helper script to run dataset download, linting, tests, training, and either Docker Compose or Kubernetes in one command.
 
-### 9. Task 8 — Monitoring and logging
+Docker Compose deployment:
 ```bash
-curl http://127.0.0.1:8000/metrics
+./scripts/run_end_to_end.sh --detach --streamlit
 ```
+
+Kubernetes deployment:
+```bash
+./scripts/run_end_to_end.sh --k8s --streamlit
+```
+
+This will:
+- run lint and tests
+- train the model
+- build the API and Streamlit images
+- deploy via Docker Compose or render and apply `k8s-deployment.yaml`
+
+To skip lint or tests:
+```bash
+./scripts/run_end_to_end.sh --k8s --streamlit --no-lint --no-test
+```
+
+Then open:
+- API: http://127.0.0.1:8000/docs
+- Streamlit: http://127.0.0.1:8501
+
+This workflow is also available via the local Kubernetes helper script:
+```bash
+./scripts/deploy_local_k8s.sh
+```
+If you only need the API manifest, see [deployment.yaml](deployment.yaml).
+
+### Task 8 — Monitoring and logging
+Run the monitoring stack:
+```bash
+docker compose -f monitoring/docker-compose.monitoring.yml up --build
+```
+
+Then open:
+- http://127.0.0.1:9090 for Prometheus
+- http://127.0.0.1:3000 for Grafana
+
+Your API metrics are now scraped at `/metrics` from:
+- http://127.0.0.1:8000/metrics
 
 ### 10. Optional local UI demo
 ```bash

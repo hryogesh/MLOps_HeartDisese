@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/093b9f75d2c04a03b17b2865cb2f8364/artifacts
+end_time: 1783769160696
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 093b9f75d2c04a03b17b2865cb2f8364
+run_name: bittersweet-shad-630
+run_uuid: 093b9f75d2c04a03b17b2865cb2f8364
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783769159076
+status: 3
+tags: []
+user_id: meghana_p

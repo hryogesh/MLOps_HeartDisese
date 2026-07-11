@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/188f2226236e4e0e9b7c02f2e323c6f9/artifacts
+end_time: 1783769102880
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 188f2226236e4e0e9b7c02f2e323c6f9
+run_name: rumbling-fowl-899
+run_uuid: 188f2226236e4e0e9b7c02f2e323c6f9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783769101209
+status: 3
+tags: []
+user_id: meghana_p
