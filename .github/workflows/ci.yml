@@ -25,6 +25,8 @@ jobs:
           python -m pip install ruff
           ruff check .
       - name: Run tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           cd "$GITHUB_WORKSPACE"
           python -m pytest -q
