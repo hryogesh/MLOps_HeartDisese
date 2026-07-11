@@ -24,7 +24,19 @@ This repository implements a production-style MLOps workflow for predicting hear
 - tests - automated tests
 - config - YAML configuration
 
-## End-to-end run guide for tasks 1 to 8
+## Assignment task coverage
+the  flow and covers the required execution steps:
+
+- [x] Task 1 — Data acquisition and exploratory data analysis
+- [x] Task 2 — Feature engineering and model development
+- [x] Task 3 — Experiment tracking with MLflow
+- [x] Task 4 — Model packaging and reproducibility
+- [x] Task 5 — CI/CD and automated testing
+- [x] Task 6 — Containerization with Docker
+- [x] Task 7 — Production deployment using Kubernetes
+- [x] Task 8 — Monitoring and logging
+
+## End-to-end run guide for the assignment tasks (1 to 8)
 
 ### 1. Setup environment
 ```bash
