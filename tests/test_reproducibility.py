@@ -7,7 +7,7 @@ pytest.skip("Skipping reproducibility tests until MLflow artifact path issue is 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.models.train_with_tracking import train_with_tracking
+from src.models.train_with_tracking import train_with_tracking  # noqa: E402
 
 
 def test_training_with_tracking_returns_payload():
