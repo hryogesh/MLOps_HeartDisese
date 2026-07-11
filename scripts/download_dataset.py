@@ -1,6 +1,4 @@
 from pathlib import Path
-import shutil
-import zipfile
 
 from src.data.load_data import load_dataset
 
