@@ -25,11 +25,11 @@ jobs:
           python -m pip install ruff
           ruff check .
       - name: Run tests
+        working-directory: ${{ github.workspace }}
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          cd "$GITHUB_WORKSPACE"
-          python -m pytest -q
+          python -m pytest tests -q
       - name: Train model
         run: |
           python -m src.train
