@@ -25,13 +25,16 @@ jobs:
           python -m pip install ruff
           ruff check .
       - name: Run tests
-        working-directory: ${{ github.workspace }}
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
+          cd "$GITHUB_WORKSPACE"
           python -m pytest tests -q
       - name: Train model
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
+          cd "$GITHUB_WORKSPACE"
           python -m src.train
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
