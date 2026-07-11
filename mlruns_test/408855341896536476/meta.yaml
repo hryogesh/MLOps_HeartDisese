@@ -1,0 +1,6 @@
+artifact_location: file:///Users/meghana_p/mlops-end-to-end-project/mlruns_test/408855341896536476
+creation_time: 1783764422085
+experiment_id: '408855341896536476'
+last_update_time: 1783764422085
+lifecycle_stage: active
+name: test-experiment
