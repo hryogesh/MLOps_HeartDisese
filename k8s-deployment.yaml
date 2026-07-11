@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heart-disease-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heart-disease-api
+  template:
+    metadata:
+      labels:
+        app: heart-disease-api
+    spec:
+      containers:
+        - name: heart-disease-api
+          image: heart-disease-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: heart-disease-api
+spec:
+  selector:
+    app: heart-disease-api
+  ports:
+    - port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heart-disease-streamlit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heart-disease-streamlit
+  template:
+    metadata:
+      labels:
+        app: heart-disease-streamlit
+    spec:
+      containers:
+        - name: heart-disease-streamlit
+          image: heart-disease-streamlit:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8501
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: heart-disease-streamlit
+spec:
+  selector:
+    app: heart-disease-streamlit
+  ports:
+    - port: 8501
+      targetPort: 8501

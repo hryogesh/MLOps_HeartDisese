@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Install dependencies
@@ -28,3 +28,18 @@ jobs:
       - name: Train model
         run: |
           python -m src.train
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-artifact
+          path: models/model.joblib
+      - name: Upload MLflow run data
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-artifacts
+          path: mlruns
+      - name: Upload MLflow auxiliary artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-auxiliary-artifacts
+          path: artifacts/mlflow

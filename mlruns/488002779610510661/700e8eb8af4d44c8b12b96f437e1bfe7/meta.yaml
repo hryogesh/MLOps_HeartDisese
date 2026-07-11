@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/700e8eb8af4d44c8b12b96f437e1bfe7/artifacts
+end_time: 1783752015200
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 700e8eb8af4d44c8b12b96f437e1bfe7
+run_name: handsome-asp-621
+run_uuid: 700e8eb8af4d44c8b12b96f437e1bfe7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783752013990
+status: 3
+tags: []
+user_id: meghana_p
