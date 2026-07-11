@@ -26,6 +26,7 @@ jobs:
           ruff check .
       - name: Run tests
         run: |
+          cd "$GITHUB_WORKSPACE"
           python -m pytest -q
       - name: Train model
         run: |
