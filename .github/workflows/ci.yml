@@ -25,6 +25,9 @@ jobs:
           python -m pip install ruff
           ruff check .
       - name: Train model
+        working-directory: ${{ github.workspace }}
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           python -m src.train
       - name: Upload model artifact
