@@ -88,9 +88,9 @@ def log_training_run(params: dict, metrics: dict, model, artifact_dir: str | Non
     with mlflow.start_run() as run:
         mlflow.log_params(params)
         mlflow.log_metrics(scalar_metrics)
-        mlflow.log_artifact(str(summary_path))
-        mlflow.log_artifact(str(plot_path))
-        mlflow.log_artifact(str(confusion_path))
-        mlflow.log_artifact(str(roc_path))
+        mlflow.log_artifact(str(summary_path.name), artifact_path=None)
+        mlflow.log_artifact(str(plot_path.name), artifact_path=None)
+        mlflow.log_artifact(str(confusion_path.name), artifact_path=None)
+        mlflow.log_artifact(str(roc_path.name), artifact_path=None)
         log_model(model, artifact_path="model")
         logger.info("MLflow run logged: %s", run.info.run_id)
