@@ -16,14 +16,26 @@ logger = get_logger(__name__)
 
 def configure_mlflow(tracking_uri: str | None = None) -> None:
     """Configure MLflow for local experiment tracking."""
-    tracking_uri = tracking_uri or os.getenv("MLFLOW_TRACKING_URI", "file:./mlruns")
+    project_root = Path(__file__).resolve().parents[2]
+    default_uri = f"file:{project_root / 'mlruns'}"
+    tracking_uri = tracking_uri or os.getenv("MLFLOW_TRACKING_URI", default_uri)
+
+    if tracking_uri.startswith("file:"):
+        uri_path = Path(tracking_uri[5:])
+        if not uri_path.is_absolute():
+            uri_path = (project_root / uri_path).resolve()
+        tracking_uri = f"file:{uri_path}"
+
     mlflow.set_tracking_uri(tracking_uri)
     mlflow.set_experiment("heart-disease-mlops")
 
 
 def log_training_run(params: dict, metrics: dict, model, artifact_dir: str | None = None, y_true=None, y_pred=None, y_prob=None) -> None:
     """Log model parameters, metrics, and artifact to MLflow."""
+    project_root = Path(__file__).resolve().parents[2]
     artifact_dir = Path(artifact_dir or "artifacts/mlflow")
+    if not artifact_dir.is_absolute():
+        artifact_dir = (project_root / artifact_dir).resolve()
     artifact_dir.mkdir(parents=True, exist_ok=True)
 
     scalar_metrics = {
