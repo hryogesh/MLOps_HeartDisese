@@ -45,7 +45,13 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Task 1 — Data acquisition and EDA
+#### Download and clean the dataset
+If `data/heart_disease.csv` is not present, run the download helper with the archive located at `../Downloads/heart+disease.zip`:
+```bash
+python scripts/download_dataset.py
+```
+This creates the cleaned file at `data/heart_disease.csv`.
+
 ```bash
 python - <<'PY'
 from src.data.load_data import load_dataset

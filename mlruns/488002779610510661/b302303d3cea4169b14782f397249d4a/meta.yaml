@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/b302303d3cea4169b14782f397249d4a/artifacts
+end_time: 1783762983257
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: b302303d3cea4169b14782f397249d4a
+run_name: adorable-hound-642
+run_uuid: b302303d3cea4169b14782f397249d4a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783762982029
+status: 3
+tags: []
+user_id: meghana_p
