@@ -27,9 +27,7 @@ jobs:
       - name: Run tests
         env:
           PYTHONPATH: ${{ github.workspace }}
-        run: |
-          cd "$GITHUB_WORKSPACE"
-          python -m pytest tests -q
+        run: pytest
       - name: Train model
         env:
           PYTHONPATH: ${{ github.workspace }}
