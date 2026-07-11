@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/c073a5ac71a6464686c1dd3c17d84c21/artifacts
+end_time: 1783756606608
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: c073a5ac71a6464686c1dd3c17d84c21
+run_name: useful-steed-694
+run_uuid: c073a5ac71a6464686c1dd3c17d84c21
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783756605044
+status: 3
+tags: []
+user_id: meghana_p
