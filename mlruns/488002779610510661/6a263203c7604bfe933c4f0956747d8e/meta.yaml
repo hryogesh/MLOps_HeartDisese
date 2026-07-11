@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/6a263203c7604bfe933c4f0956747d8e/artifacts
+end_time: 1783765220726
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 6a263203c7604bfe933c4f0956747d8e
+run_name: angry-whale-869
+run_uuid: 6a263203c7604bfe933c4f0956747d8e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783765220720
+status: 4
+tags: []
+user_id: meghana_p

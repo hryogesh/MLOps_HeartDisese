@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/1f9c1384768f415e93ef6f14f1b72840/artifacts
+end_time: 1783765022706
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 1f9c1384768f415e93ef6f14f1b72840
+run_name: masked-horse-426
+run_uuid: 1f9c1384768f415e93ef6f14f1b72840
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783765022700
+status: 4
+tags: []
+user_id: meghana_p

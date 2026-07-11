@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/88e5c8cc56994237a9cb2382f87e7141/artifacts
+end_time: 1783765059489
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 88e5c8cc56994237a9cb2382f87e7141
+run_name: intelligent-loon-741
+run_uuid: 88e5c8cc56994237a9cb2382f87e7141
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783765059483
+status: 4
+tags: []
+user_id: meghana_p

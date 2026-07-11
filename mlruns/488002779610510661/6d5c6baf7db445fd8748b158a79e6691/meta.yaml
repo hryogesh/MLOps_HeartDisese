@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/6d5c6baf7db445fd8748b158a79e6691/artifacts
+end_time: 1783765276140
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 6d5c6baf7db445fd8748b158a79e6691
+run_name: fun-skunk-777
+run_uuid: 6d5c6baf7db445fd8748b158a79e6691
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783765274587
+status: 3
+tags: []
+user_id: meghana_p

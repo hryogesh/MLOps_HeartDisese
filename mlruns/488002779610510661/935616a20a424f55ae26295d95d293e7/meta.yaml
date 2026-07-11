@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/935616a20a424f55ae26295d95d293e7/artifacts
+end_time: 1783765006477
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 935616a20a424f55ae26295d95d293e7
+run_name: bedecked-sloth-722
+run_uuid: 935616a20a424f55ae26295d95d293e7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783765006471
+status: 4
+tags: []
+user_id: meghana_p

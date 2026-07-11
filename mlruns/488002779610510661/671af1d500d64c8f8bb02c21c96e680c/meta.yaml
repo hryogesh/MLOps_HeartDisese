@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/671af1d500d64c8f8bb02c21c96e680c/artifacts
+end_time: 1783765006705
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 671af1d500d64c8f8bb02c21c96e680c
+run_name: glamorous-flea-463
+run_uuid: 671af1d500d64c8f8bb02c21c96e680c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783765006697
+status: 4
+tags: []
+user_id: meghana_p
