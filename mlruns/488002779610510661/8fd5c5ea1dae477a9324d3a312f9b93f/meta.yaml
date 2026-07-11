@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/8fd5c5ea1dae477a9324d3a312f9b93f/artifacts
+end_time: 1783750937772
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 8fd5c5ea1dae477a9324d3a312f9b93f
+run_name: industrious-vole-770
+run_uuid: 8fd5c5ea1dae477a9324d3a312f9b93f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783750936523
+status: 3
+tags: []
+user_id: meghana_p

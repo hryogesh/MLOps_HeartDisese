@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/8d087dc3761f4f85a16c3c2816459ad7/artifacts
+end_time: 1783744331067
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 8d087dc3761f4f85a16c3c2816459ad7
+run_name: youthful-shrike-406
+run_uuid: 8d087dc3761f4f85a16c3c2816459ad7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783744329646
+status: 3
+tags: []
+user_id: meghana_p

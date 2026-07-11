@@ -12,10 +12,20 @@ DATASET_ARCHIVE = Path("../Downloads/heart+disease.zip")
 
 def load_dataset(path: Optional[str] = None) -> pd.DataFrame:
     """Load the Cleveland heart disease dataset from the attached archive or a local CSV."""
+    project_root = Path(__file__).resolve().parents[2]
+
     if path is None:
-        path = Path(__file__).resolve().parents[2] / "data" / "heart_disease.csv"
+        path = project_root / "data" / "heart_disease.csv"
     else:
         path = Path(path)
+        if not path.is_absolute():
+            candidates = [Path.cwd() / path, project_root / path]
+            for candidate in candidates:
+                if candidate.exists():
+                    path = candidate
+                    break
+            else:
+                path = project_root / path
 
     if not path.exists():
         if not DATASET_ARCHIVE.exists():

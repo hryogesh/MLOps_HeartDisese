@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/7b9d9be3a51c4de6b1381e9ffc1e7281/artifacts
+end_time: 1783746295796
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 7b9d9be3a51c4de6b1381e9ffc1e7281
+run_name: beautiful-bird-513
+run_uuid: 7b9d9be3a51c4de6b1381e9ffc1e7281
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783746294606
+status: 3
+tags: []
+user_id: meghana_p

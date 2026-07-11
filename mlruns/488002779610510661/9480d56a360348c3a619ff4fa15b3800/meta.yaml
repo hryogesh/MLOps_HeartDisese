@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/9480d56a360348c3a619ff4fa15b3800/artifacts
+end_time: 1783750936386
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 9480d56a360348c3a619ff4fa15b3800
+run_name: grandiose-skink-973
+run_uuid: 9480d56a360348c3a619ff4fa15b3800
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783750934827
+status: 3
+tags: []
+user_id: meghana_p

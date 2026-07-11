@@ -3,6 +3,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from fastapi.testclient import TestClient
+
+from src.api.main import app
 from src.data.load_data import load_dataset
 from src.data.validate import validate_dataset
 from src.features.feature_selection import select_features
@@ -17,6 +20,13 @@ def test_dataset_loads():
     df = load_dataset(path="data/heart_disease.csv")
     assert not df.empty
     assert df.shape[0] > 200
+    assert "target" in df.columns
+
+
+def test_dataset_loads_from_subdirectory(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    df = load_dataset(path="data/heart_disease.csv")
+    assert not df.empty
     assert "target" in df.columns
 
 
@@ -40,6 +50,16 @@ def test_prediction_returns_expected_keys():
     assert set(result.keys()) == {"prediction", "probability"}
 
 
+def test_api_health_and_metrics_endpoints():
+    client = TestClient(app)
+    health_response = client.get("/health")
+    assert health_response.status_code == 200
+
+    metrics_response = client.get("/metrics")
+    assert metrics_response.status_code == 200
+    assert "http_requests_total" in metrics_response.text
+
+
 def test_model_training_writes_model_artifact(tmp_path):
     model_path = tmp_path / "model.joblib"
     trainer = ModelTrainer(model_path=str(model_path))
@@ -57,6 +77,7 @@ def test_feature_selection_reduces_features():
 def test_hyperparameter_tuning_returns_best_params():
     df = load_dataset(path="data/heart_disease.csv")
     tuning = tune_hyperparameters(df)
+    assert tuning["search_type"] == "randomized_search"
     assert "C" in tuning["best_params"]
 
 

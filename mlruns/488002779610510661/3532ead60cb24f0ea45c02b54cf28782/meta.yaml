@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/3532ead60cb24f0ea45c02b54cf28782/artifacts
+end_time: 1783710361890
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 3532ead60cb24f0ea45c02b54cf28782
+run_name: polite-pug-638
+run_uuid: 3532ead60cb24f0ea45c02b54cf28782
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783710360591
+status: 3
+tags: []
+user_id: meghana_p

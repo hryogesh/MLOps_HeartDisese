@@ -15,6 +15,9 @@ def main():
             params={"model": "logistic_regression"},
             metrics=payload["metrics"],
             model=payload["model"],
+            y_true=payload["evaluation"]["y_true"],
+            y_pred=payload["evaluation"]["y_pred"],
+            y_prob=payload["evaluation"]["y_prob"],
         )
         logger.info("Training completed successfully")
         return payload

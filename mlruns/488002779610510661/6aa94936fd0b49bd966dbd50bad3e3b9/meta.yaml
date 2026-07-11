@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/6aa94936fd0b49bd966dbd50bad3e3b9/artifacts
+end_time: 1783747061394
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 6aa94936fd0b49bd966dbd50bad3e3b9
+run_name: unequaled-ray-907
+run_uuid: 6aa94936fd0b49bd966dbd50bad3e3b9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783747060190
+status: 3
+tags: []
+user_id: meghana_p
