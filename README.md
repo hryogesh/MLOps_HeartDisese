@@ -1,6 +1,7 @@
 # End-to-End MLOps Project for Heart Disease Prediction
 
-This repository implements a production-style MLOps workflow for predicting heart disease using the Cleveland heart disease dataset from the attached archive.
+This repository implements a production-style MLOps workflow for predicting heart disease using the Heart Disease UCI Dataset
+Source: UCI Machine Learning Repository
 
 ## Features
 - Data ingestion from the attached dataset archive
