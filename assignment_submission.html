@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Disease Prediction MLOps Assignment Submission</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 2rem;
+      color: #222;
+    }
+    h1, h2, h3 {
+      color: #004a8f;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    a {
+      color: #0066cc;
+    }
+    .note {
+      background: #fff8c4;
+      border-left: 4px solid #f0c000;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Heart Disease Prediction MLOps Assignment Submission</h1>
+  <p>This submission contains the complete end-to-end solution for the MLOps assignment using the repository below.</p>
+  <h2>Project Summary</h2>
+  <p><strong>Title:</strong> End-to-End MLOps Project for Heart Disease Prediction</p>
+  <p><strong>Problem Statement:</strong> Build a machine learning classifier to predict heart disease risk from patient health data and deploy it as a production-ready monitored API.</p>
+  <h3>Key Deliverables Included</h3>
+  <ul>
+    <li>Data ingestion, validation, cleaning, and exploratory analysis</li>
+    <li>Feature preprocessing, model comparison, training, and MLflow experiment tracking</li>
+    <li>FastAPI inference service and Streamlit demo application</li>
+    <li>Docker containerization with compose files for API and UI</li>
+    <li>Kubernetes deployment manifests for production-like deployment</li>
+    <li>Monitoring support with Prometheus and Grafana</li>
+    <li>Automated unit tests and CI workflow via GitHub Actions</li>
+  </ul>
+  <h3>Workflow Summary</h3>
+  <ol>
+    <li>Load and clean the Cleveland heart disease dataset</li>
+    <li>Perform feature engineering and model selection</li>
+    <li>Train and track experiments with MLflow</li>
+    <li>Package model artifacts and validate reproducibility</li>
+    <li>Run tests, lint code, and execute CI validation</li>
+    <li>Deploy with Docker and Kubernetes</li>
+    <li>Monitor API metrics and dashboard performance</li>
+  </ol>
+  <p><strong>Status:</strong> The project is implemented, documented, and ready for submission with source code, deployment manifests, tests, and reporting artifacts.</p>
+  <h2>GitHub Repository</h2>
+  <p><a href="https://github.com/hryogesh/MLOps_HeartDisese" target="_blank" rel="noopener">https://github.com/hryogesh/MLOps_HeartDisese</a></p>
+  <h2>Architecture Diagram</h2>
+  <p>The architecture below shows the end-to-end repository verification flow from code through deployment manifests, including monitoring and task alignment across Tasks 1–8.</p>
+  <p><img src="docs/architecture_diagram.png" alt="Architecture Diagram" style="max-width:100%;height:auto;border:1px solid #ccc;padding:8px;background:#fff;" /></p>
+  <p>This single PNG captures:
+    <ul>
+      <li>code and dataset ingestion</li>
+      <li>model training, MLflow tracking, and packaging</li>
+      <li>CI/CD verification, Docker containerization, and Kubernetes deployment manifests</li>
+      <li>monitoring and Grafana dashboards</li>
+    </ul>
+  </p>
+  <h2>Assignment Execution Summary</h2>
+  <ol>
+    <li><strong>Project Overview</strong> - Explain the goal, dataset, and high-level architecture.</li>
+    <li><strong>Environment Setup</strong> - Document how to install dependencies and prepare the data.</li>
+    <li><strong>Data Processing</strong> - Describe data ingestion, validation, cleaning, and preprocessing.</li>
+    <li><strong>Model Training</strong> - Show how the model is trained, evaluated, and tracked with MLflow.</li>
+    <li><strong>Deployment</strong> - Detail Docker and Kubernetes deployment approaches.</li>
+    <li><strong>Monitoring</strong> - Explain metrics collection and dashboarding with Prometheus and Grafana.</li>
+    <li><strong>Testing & CI</strong> - Provide instructions for linting, test execution, and CI workflow.</li>
+    <li><strong>Conclusion</strong> - Summarize results, next steps, and any known issues.</li>
+  </ol>
+  <h2>Step-by-Step Explanation</h2>
+  <h3>Task 1: Setup and Data Acquisition</h3>
+  <p>Initialize a Python virtual environment, install required packages, and prepare the dataset.</p>
+  <pre><code>python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/download_dataset.py</code></pre>
+  <p>Verify that the cleaned dataset exists at <code>data/heart_disease.csv</code> and inspect its contents.</p>
+  <pre><code>python - <<'PY'
+from src.data.load_data import load_dataset
+
+df = load_dataset(path='data/heart_disease.csv')
+print(df.head())
+print(df.shape)
+print(df.isnull().sum())
+PY</code></pre>
+  <h3>EDA </h3>
+   validates the dataset and highlights the key exploratory analysis results:</p>
+  <ul>
+    <li>Dataset shape: <code>(303, 14)</code></li>
+    <li>No missing values for most features; <code>ca</code> has 4 missing values and <code>thal</code> has 2 missing values</li>
+    <li>Class distribution is balanced enough for binary classification</li>
+    <li>Numeric feature distributions and correlations were inspected using histograms and a correlation heatmap</li>
+    <li>Target relationships were analyzed for features such as <code>thalach</code> and <code>target</code></li>
+  </ul>
+  <p>Recommended EDA commands:</p>
+  <pre><code>python - <<'PY'
+from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from src.data.load_data import load_dataset
+
+df = load_dataset(path='data/heart_disease.csv')
+print('Shape:', df.shape)
+print(df.isnull().sum())
+
+sns.countplot(data=df, x='target')
+plt.title('Class Distribution')
+plt.show()
+
+numeric_cols = df.select_dtypes(include='number').columns.tolist()
+for col in numeric_cols:
+    plt.figure(figsize=(6, 4))
+    sns.histplot(df[col], kde=True, bins=20)
+    plt.title(f'{col} Distribution')
+    plt.show()
+
+plt.figure(figsize=(12, 10))
+sns.heatmap(df[numeric_cols].corr(), cmap='coolwarm', annot=False)
+plt.title('Correlation Heatmap')
+plt.show()
+PY</code></pre>
+  <h3>Task 2: Feature Engineering & Model Development</h3>
+  <p>Preprocess features, run model comparisons, and choose the best model.</p>
+  <pre><code>python - <<'PY'
+from src.data.load_data import load_dataset
+from src.features.preprocess import prepare_features
+from src.models.model_comparison import compare_models
+
+df = load_dataset(path='data/heart_disease.csv')
+prepared = prepare_features(df)
+print(prepared['X_train'].shape, prepared['X_test'].shape)
+comparison = compare_models(df)
+print(comparison['best_model'])
+print(comparison['results'])
+PY</code></pre>
+  <h3>Task 3: Experiment Tracking with MLflow</h3>
+  <p>Train the model while logging metrics and parameters to MLflow.</p>
+  <pre><code>python -m src.train
+mlflow ui --host 127.0.0.1 --port 5000</code></pre>
+  <p>Open <a href="http://127.0.0.1:5000" target="_blank" rel="noopener">http://127.0.0.1:5000</a> to view MLflow runs.</p>
+  <h3>Task 4: Model Packaging and Reproducibility</h3>
+  <p>Validate the model packaging and inference logic using a sample prediction request.</p>
+  <pre><code>python - <<'PY'
+from src.models.predict import predict
+
+result = predict([63.0, 1.0, 1.0, 145.0, 233.0, 1.0, 2.0, 150.0, 0.0, 2.3, 3.0, 0.0, 6.0])
+print(result)
+PY</code></pre>
+  <h3>Task 5: CI/CD and Automated Testing</h3>
+  <p>Run linter checks and execute unit tests to ensure code quality and reliability. The repository also includes a GitHub Actions CI workflow that runs the same checks automatically on every push and pull request to <code>main</code>.</p>
+  <pre><code>python -m pip install --upgrade pip
+python -m pip install -r requirements-dev.txt
+python -m pip install ruff
+ruff check .
+python -m pytest tests -q</code></pre>
+  <p>To validate the CI workflow locally, ensure the tests pass first and then push your changes. The GitHub Actions workflow is defined in <code>.github/workflows/ci.yml</code> and includes:</p>
+  <ul>
+    <li>dependency installation</li>
+    <li>ruff linting</li>
+    <li>pytest test execution</li>
+    <li>model training and artifact upload</li>
+  </ul>
+  <p>If the repository is connected to GitHub, open the <strong>Actions</strong> tab to view the CI run status after pushing changes.</p>
+  <h3>Task 6: Containerization with Docker</h3>
+  <p>Build and run the API using Docker Compose. This packages the application into containers.</p>
+  <pre><code>docker compose -f docker/docker-compose.yml up --build</code></pre>
+  <p>Open the API documentation at <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener">http://127.0.0.1:8000/docs</a>.</p>
+  <h3>Task 7: Local Deployment</h3>
+  <p>Use the end-to-end script to run Docker Compose or Kubernetes deployment</p>
+  <pre><code>./scripts/run_end_to_end.sh --detach --streamlit
+./scripts/run_end_to_end.sh --k8s --streamlit</code></pre>
+  <p>The Kubernetes helper builds images and applies the manifest to a local cluster.</p>
+  <h3>Task 8: Monitoring and Logging</h3>
+  <p>Start Prometheus and Grafana to collect and visualize API metrics.</p>
+  <pre><code>docker compose -f monitoring/docker-compose.monitoring.yml up --build</code></pre>
+  <p>Open dashboards at:</p>
+  <ul>
+    <li><a href="http://127.0.0.1:9090" target="_blank" rel="noopener">Prometheus</a></li>
+    <li><a href="http://127.0.0.1:3000" target="_blank" rel="noopener">Grafana</a></li>
+  </ul>
+  <h2>Conclusion</h2>
+  <p>This submission document covers the full MLOps assignment workflow from Task 1 through Task 8. It includes data ingestion, model training, experiment tracking, packaging, CI/CD, deployment, and monitoring with direct repository file references and runnable commands.</p>
+  
+</body>
+</html>
