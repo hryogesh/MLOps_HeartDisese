@@ -1,0 +1,86 @@
+
+EXPLORATORY DATA ANALYSIS (EDA) REPORT
+=====================================
+
+1. DATASET OVERVIEW
+-------------------
+Shape: 303 rows × 14 columns
+Rows: 303
+Columns: 14
+Missing Values: 6
+
+Features with missing values:
+ca      4
+thal    2
+
+2. DATA TYPES
+-------------
+age         float64
+sex         float64
+cp          float64
+trestbps    float64
+chol        float64
+fbs         float64
+restecg     float64
+thalach     float64
+exang       float64
+oldpeak     float64
+slope       float64
+ca          float64
+thal        float64
+target        int64
+
+3. CLASS DISTRIBUTION
+---------------------
+target
+0    164
+1    139
+Class Balance: target
+0    0.541
+1    0.459
+
+4. NUMERIC FEATURES SUMMARY
+----------------------------
+              age         sex          cp    trestbps        chol         fbs     restecg     thalach       exang     oldpeak       slope          ca        thal      target
+count  303.000000  303.000000  303.000000  303.000000  303.000000  303.000000  303.000000  303.000000  303.000000  303.000000  303.000000  299.000000  301.000000  303.000000
+mean    54.438944    0.679868    3.158416  131.689769  246.693069    0.148515    0.990099  149.607261    0.326733    1.039604    1.600660    0.672241    4.734219    0.458746
+std      9.038662    0.467299    0.960126   17.599748   51.776918    0.356198    0.994971   22.875003    0.469794    1.161075    0.616226    0.937438    1.939706    0.499120
+min     29.000000    0.000000    1.000000   94.000000  126.000000    0.000000    0.000000   71.000000    0.000000    0.000000    1.000000    0.000000    3.000000    0.000000
+25%     48.000000    0.000000    3.000000  120.000000  211.000000    0.000000    0.000000  133.500000    0.000000    0.000000    1.000000    0.000000    3.000000    0.000000
+50%     56.000000    1.000000    3.000000  130.000000  241.000000    0.000000    1.000000  153.000000    0.000000    0.800000    2.000000    0.000000    3.000000    0.000000
+75%     61.000000    1.000000    4.000000  140.000000  275.000000    0.000000    2.000000  166.000000    1.000000    1.600000    2.000000    1.000000    7.000000    1.000000
+max     77.000000    1.000000    4.000000  200.000000  564.000000    1.000000    2.000000  202.000000    1.000000    6.200000    3.000000    3.000000    7.000000    1.000000
+
+5. CORRELATION INSIGHTS
+------------------------
+Numeric features analyzed: 14
+Features: age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target
+
+6. MODEL COMPARISON RESULTS
+----------------------------
+
+logistic_regression:
+  - Accuracy:        0.8689
+  - Precision:       0.8125
+  - Recall:          0.9286
+  - ROC-AUC:         0.9513
+  - CV Accuracy:     0.8264 ± 0.0172
+
+random_forest:
+  - Accuracy:        0.9016
+  - Precision:       0.8438
+  - Recall:          0.9643
+  - ROC-AUC:         0.9551
+  - CV Accuracy:     0.8139 ± 0.0143
+
+Selected Model: random_forest
+Note: Models were trained with median imputation, standard scaling, and 5-fold stratified cross-validation.
+
+PLOTS GENERATED
+---------------
+1. 01_class_distribution.png - Class balance visualization
+2. 02_hist_*.png - Individual feature distributions
+3. 03_correlation_heatmap.png - Feature correlations
+4. 04_target_vs_thalach.png - Target relationship analysis
+
+EDA Complete ✓

@@ -1,0 +1,15 @@
+FEATURE PREPROCESSING STATISTICS
+==================================================
+
+X_train shape: (242, 13)
+X_test shape:  (61, 13)
+y_train shape: (242,)
+y_test shape:  (61,)
+
+Train Class Distribution:
+  Class 0: 131 (54.1%)
+  Class 1: 111 (45.9%)
+
+Test Class Distribution:
+  Class 0: 33 (54.1%)
+  Class 1: 28 (45.9%)

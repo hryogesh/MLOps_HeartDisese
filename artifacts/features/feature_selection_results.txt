@@ -1,0 +1,28 @@
+FEATURE SELECTION RESULTS
+==================================================
+
+Selected Features (8):
+  - sex
+  - cp
+  - thalach
+  - exang
+  - oldpeak
+  - slope
+  - ca
+  - thal
+
+
+Feature Importance Scores:
+  thal: 112.7702
+  ca: 80.8006
+  exang: 69.0209
+  oldpeak: 66.1667
+  thalach: 63.4192
+  cp: 62.4238
+  slope: 39.1382
+  sex: 24.9789
+  age: 15.7696
+  restecg: 8.8714
+  trestbps: 7.0066
+  chol: 2.1991
+  fbs: 0.1922

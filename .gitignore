@@ -7,6 +7,5 @@ __pycache__/
 venv/
 .env
 .mlflow/
-artifacts/
 .pytest_cache/
 .DS_Store
