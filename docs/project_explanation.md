@@ -23,7 +23,6 @@ The objective of this project is to build a complete machine learning pipeline f
 - FastAPI
 - Streamlit
 - MLflow
-- DVC
 - Docker
 - Kubernetes
 - GitHub Actions
