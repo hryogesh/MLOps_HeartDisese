@@ -54,3 +54,5 @@
 2026-07-12 09:55:49,869 - INFO - __main__ - Training completed successfully
 2026-07-12 09:59:10,232 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 2bf889ef13154567a68c7f437773abd2
 2026-07-12 09:59:10,233 - INFO - __main__ - Training completed successfully
+2026-07-12 15:41:22,597 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 3beb1d94951c45948eabcbd7041c3bbf
+2026-07-12 15:41:22,598 - INFO - __main__ - Training completed successfully

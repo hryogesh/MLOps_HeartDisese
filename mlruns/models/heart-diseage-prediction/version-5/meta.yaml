@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1783851432540
+current_stage: None
+description: ''
+last_updated_timestamp: 1783851432540
+name: heart-diseage-prediction
+run_id: 3beb1d94951c45948eabcbd7041c3bbf
+run_link: ''
+source: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/3beb1d94951c45948eabcbd7041c3bbf/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/3beb1d94951c45948eabcbd7041c3bbf/artifacts/model
+user_id: null
+version: 5

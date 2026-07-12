@@ -95,7 +95,7 @@ Then open:
 - http://127.0.0.1:5000
 
 ### Task 4 — Model packaging and reproducibility
-Train the model once to create a reusable artifact at [models/model.joblib](models/model.joblib). The saved joblib bundle contains the full sklearn pipeline with preprocessing and the classifier, so predictions remain reproducible without manually reapplying feature transforms.
+Train the model once to create a reusable artifact at [models/model.joblib](models/model.joblib). The saved joblib bundle contains the full scikit-learn pipeline, including the preprocessing transformer (imputer + scaler) and the classifier, so predictions remain reproducible without manually reapplying feature transforms.
 
 ```bash
 python -m src.train
@@ -111,7 +111,12 @@ print(result)
 PY
 ```
 
-You can also inspect the packaged pipeline directly from the saved artifact using the project requirements in [requirements.txt](requirements.txt).
+The model payload is stored as `models/model.joblib` and includes:
+- `pipeline`: full preprocess + classifier pipeline
+- `preprocessor`: transformer stack for imputing and scaling
+- `feature_columns`: ordered feature names for reproducible input
+
+MLflow also logs the same pipeline as an MLflow model artifact under `mlruns/`.
 
 ### Task 5 — CI/CD and automated testing
 Run the local test suite with:
