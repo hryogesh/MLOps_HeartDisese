@@ -6,8 +6,11 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import mlflow
+import pandas as pd
+from mlflow.models import infer_signature
 from mlflow.sklearn import log_model
 from sklearn.metrics import confusion_matrix, roc_curve
+from sklearn.pipeline import Pipeline
 
 from src.logger import get_logger
 
@@ -30,7 +33,17 @@ def configure_mlflow(tracking_uri: str | None = None) -> None:
     mlflow.set_experiment("heart-disease-mlops")
 
 
-def log_training_run(params: dict, metrics: dict, model, artifact_dir: str | None = None, y_true=None, y_pred=None, y_prob=None) -> None:
+def log_training_run(
+    params: dict,
+    metrics: dict,
+    model,
+    artifact_dir: str | None = None,
+    y_true=None,
+    y_pred=None,
+    y_prob=None,
+    preprocessor=None,
+    feature_columns=None,
+) -> None:
     """Log model parameters, metrics, and artifact to MLflow."""
     project_root = Path(__file__).resolve().parents[2]
     artifact_dir = Path(artifact_dir or "artifacts/mlflow")
@@ -85,9 +98,32 @@ def log_training_run(params: dict, metrics: dict, model, artifact_dir: str | Non
     else:
         roc_path.touch(exist_ok=True)
 
+    default_feature_columns = [
+        "age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach",
+        "exang", "oldpeak", "slope", "ca", "thal"
+    ]
+    columns = feature_columns or default_feature_columns
+
+    if preprocessor is not None:
+        logged_model = Pipeline([("preprocessor", preprocessor), ("classifier", model)])
+    else:
+        logged_model = model
+
+    input_example = pd.DataFrame([ [0.0] * len(columns) ], columns=columns)
+    try:
+        prediction = logged_model.predict(input_example)
+        signature = infer_signature(input_example, prediction)
+    except Exception:
+        signature = None
+
     with mlflow.start_run() as run:
         mlflow.log_params(params)
         mlflow.log_metrics(scalar_metrics)
         mlflow.log_artifacts(str(artifact_dir))
-        log_model(model, artifact_path="model")
+        log_model(
+            logged_model,
+            artifact_path="model",
+            input_example=input_example,
+            signature=signature,
+        )
         logger.info("MLflow run logged: %s", run.info.run_id)

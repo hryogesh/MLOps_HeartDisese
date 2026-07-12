@@ -6,6 +6,7 @@ from typing import Optional
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.pipeline import Pipeline
 
 from src.data.load_data import load_dataset
 from src.features.preprocess import prepare_features
@@ -19,11 +20,17 @@ class ModelTrainer:
     def train(self):
         df = load_dataset(path="data/heart_disease.csv")
         prepared = prepare_features(df)
-        self.model.fit(prepared["X_train"], prepared["y_train"])
+        full_pipeline = Pipeline(
+            steps=[
+                ("preprocessor", prepared["preprocessor"]),
+                ("classifier", self.model),
+            ]
+        )
+        full_pipeline.fit(prepared["X_train_raw"], prepared["y_train"])
 
-        predictions = self.model.predict(prepared["X_test"])
+        predictions = full_pipeline.predict(prepared["X_test_raw"])
         accuracy = accuracy_score(prepared["y_test"], predictions)
-        probabilities = self.model.predict_proba(prepared["X_test"])[:, 1]
+        probabilities = full_pipeline.predict_proba(prepared["X_test_raw"])[:, 1]
         report = classification_report(prepared["y_test"], predictions, output_dict=True)
         precision = report["weighted avg"]["precision"]
         recall = report["weighted avg"]["recall"]
@@ -32,11 +39,9 @@ class ModelTrainer:
         self.model_path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "model": self.model,
+            "pipeline": full_pipeline,
             "preprocessor": prepared["preprocessor"],
-            "feature_columns": [
-                "age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach",
-                "exang", "oldpeak", "slope", "ca", "thal"
-            ],
+            "feature_columns": prepared["feature_columns"],
             "metrics": {
                 "accuracy": accuracy,
                 "precision": precision,

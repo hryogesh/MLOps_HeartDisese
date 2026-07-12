@@ -39,7 +39,10 @@ def prepare_features(df: pd.DataFrame, test_size: float = 0.2, random_state: int
     return {
         "X_train": X_train_scaled,
         "X_test": X_test_scaled,
+        "X_train_raw": X_train,
+        "X_test_raw": X_test,
         "y_train": y_train,
         "y_test": y_test,
         "preprocessor": preprocessor,
+        "feature_columns": feature_columns,
     }

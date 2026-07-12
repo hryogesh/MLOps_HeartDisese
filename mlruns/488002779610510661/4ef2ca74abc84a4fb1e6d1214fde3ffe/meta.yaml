@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/meghana_p/mlops-end-to-end-project/mlruns/488002779610510661/4ef2ca74abc84a4fb1e6d1214fde3ffe/artifacts
+end_time: 1783829250019
+entry_point_name: ''
+experiment_id: '488002779610510661'
+lifecycle_stage: active
+run_id: 4ef2ca74abc84a4fb1e6d1214fde3ffe
+run_name: merciful-frog-861
+run_uuid: 4ef2ca74abc84a4fb1e6d1214fde3ffe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783829248547
+status: 3
+tags: []
+user_id: meghana_p

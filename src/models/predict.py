@@ -19,16 +19,21 @@ def predict(input_features: List[float], model_path: str | None = None) -> dict[
         ModelTrainer(model_path=str(model_path)).train()
         payload = joblib.load(model_path)
 
-    model = payload["model"]
-    preprocessor = payload["preprocessor"]
     feature_columns = payload.get("feature_columns", [
         "age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach",
         "exang", "oldpeak", "slope", "ca", "thal"
     ])
 
     features = pd.DataFrame([input_features], columns=feature_columns)
-    features_scaled = preprocessor.transform(features)
-    prediction = int(model.predict(features_scaled)[0])
-    probability = float(model.predict_proba(features_scaled)[0].max())
+    if "pipeline" in payload:
+        pipeline = payload["pipeline"]
+        prediction = int(pipeline.predict(features)[0])
+        probability = float(pipeline.predict_proba(features)[0].max())
+    else:
+        model = payload["model"]
+        preprocessor = payload["preprocessor"]
+        features_scaled = preprocessor.transform(features)
+        prediction = int(model.predict(features_scaled)[0])
+        probability = float(model.predict_proba(features_scaled)[0].max())
 
     return {"prediction": prediction, "probability": probability}

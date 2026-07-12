@@ -45,7 +45,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-If `data/heart_disease.csv` is not present, run the download helper with the archive located at `../Downloads/heart+disease.zip`:
+Dataset: Title: Heart Disease UCI Dataset
+Source: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/heart+Disease)
+If `data/heart_disease.csv` is not present, run the download helper with the archive located at `../Downloads/heart+disease.zip` or :
 ```bash
 python scripts/download_dataset.py
 ```
@@ -93,6 +95,13 @@ Then open:
 - http://127.0.0.1:5000
 
 ### Task 4 — Model packaging and reproducibility
+Train the model once to create a reusable artifact at [models/model.joblib](models/model.joblib). The saved joblib bundle contains the full sklearn pipeline with preprocessing and the classifier, so predictions remain reproducible without manually reapplying feature transforms.
+
+```bash
+python -m src.train
+```
+
+Then run inference with the packaged model:
 ```bash
 python - <<'PY'
 from src.models.predict import predict
@@ -102,56 +111,76 @@ print(result)
 PY
 ```
 
+You can also inspect the packaged pipeline directly from the saved artifact using the project requirements in [requirements.txt](requirements.txt).
+
 ### Task 5 — CI/CD and automated testing
+Run the local test suite with:
 ```bash
 pytest -q
 ```
 
-### Task 6 — Containerization with Docker
+This repository also includes a GitHub Actions workflow at [.github/workflows/ci.yml](.github/workflows/ci.yml) that automates:
+- dependency installation
+- linting with Ruff
+- unit tests with Pytest
+- model training
+- artifact upload for the trained model and MLflow outputs
+
+Each workflow run publishes:
+- [models/model.joblib](models/model.joblib) as the trained model artifact
+- MLflow run data under [mlruns](mlruns)
+- auxiliary artifacts under [artifacts/mlflow](artifacts/mlflow)
+
+### Task 6 — Model containerization
+Build and run the model-serving API directly with Docker Compose:
 ```bash
 docker compose -f docker/docker-compose.yml up --build
 ```
 
-Then open:
-- http://127.0.0.1:8000/docs for the Swagger UI
-- http://127.0.0.1:8000/health for the health check endpoint
+The containerized FastAPI service exposes:
+- http://127.0.0.1:8001/docs for the Swagger UI
+- http://127.0.0.1:8001/health for the health check endpoint
+- http://127.0.0.1:8001/predict for JSON inference requests
 
-### Task 7 — Local end-to-end deployment
-Use the helper script to run dataset download, linting, tests, training, and either Docker Compose or Kubernetes in one command.
-
-Docker Compose deployment:
+Sample prediction request:
 ```bash
-./scripts/run_end_to_end.sh --detach --streamlit
+curl -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  -d '{"features":[63.0,1.0,1.0,145.0,233.0,1.0,2.0,150.0,0.0,2.3,3.0,0.0,6.0]}'
 ```
 
-Kubernetes deployment:
-```bash
-./scripts/run_end_to_end.sh --k8s --streamlit
+Example response:
+```json
+{"prediction":0,"probability":0.6578291651317967}
 ```
 
-This will:
-- run lint and tests
-- train the model
-- build the API and Streamlit images
-- deploy via Docker Compose or render and apply `k8s-deployment.yaml`
-
-To skip lint or tests:
+### Task 7 — Production deployment
+Deploy the containerized API directly to a local Kubernetes cluster using the manifest in [k8s-deployment.yaml](k8s-deployment.yaml):
 ```bash
-./scripts/run_end_to_end.sh --k8s --streamlit --no-lint --no-test
+kubectl apply -f k8s-deployment.yaml
+```
+
+If you are using Docker Desktop, build the required images first:
+```bash
+docker build -f docker/Dockerfile -t heart-disease-api:latest .
+docker build -f docker/Dockerfile.streamlit -t heart-disease-streamlit:latest .
+```
+
+If the LoadBalancer IP stays pending, verify the deployment locally with port-forwarding:
+```bash
+kubectl get deployments,services
+kubectl port-forward svc/heart-disease-api 8000:80
+kubectl port-forward svc/heart-disease-streamlit 8501:8501
 ```
 
 Then open:
 - API: http://127.0.0.1:8000/docs
 - Streamlit: http://127.0.0.1:8501
 
-This workflow is also available via the local Kubernetes helper script:
-```bash
-./scripts/deploy_local_k8s.sh
-```
 If you only need the API manifest, see [deployment.yaml](deployment.yaml).
 
 ### Task 8 — Monitoring and logging
-Run the monitoring stack:
+Run the monitoring stack directly:
 ```bash
 docker compose -f monitoring/docker-compose.monitoring.yml up --build
 ```
@@ -159,9 +188,30 @@ docker compose -f monitoring/docker-compose.monitoring.yml up --build
 Then open:
 - http://127.0.0.1:9090 for Prometheus
 - http://127.0.0.1:3000 for Grafana
+- http://127.0.0.1:3000/d/heart-disease-api/heart-disease-api-monitoring for the pre-provisioned dashboard
+
+The Grafana dashboard is configured to show the last 2 hours by default. If you want a different range, use the Grafana time-picker in the top-right and select a relative range such as "Last 2 hours" or "Last 1 hour".
+
+Prometheus query examples:
+- In the Prometheus UI, run: `increase(http_requests_total[1m])`
+- To check target health, run: `up{job="heart-disease-api"}`
+
+API query_range example for the last two hours:
+```bash
+start=$(date -u -v -2H +%s)
+end=$(date -u +%s)
+
+curl -G 'http://127.0.0.1:9090/api/v1/query_range' \
+  --data-urlencode 'query=increase(http_requests_total[1m])' \
+  --data-urlencode "start=$start" \
+  --data-urlencode "end=$end" \
+  --data-urlencode 'step=60'
+```
 
 Your API metrics are now scraped at `/metrics` from:
-- http://127.0.0.1:8000/metrics
+- http://127.0.0.1:8001/metrics
+
+> Note: the Docker Compose API service exposes the container on host port `8001`.
 
 ### 10. Optional local UI demo
 ```bash

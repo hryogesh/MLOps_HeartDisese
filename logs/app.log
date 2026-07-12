@@ -48,3 +48,9 @@
 2026-07-11 16:55:26,650 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 63329b250ac24f66b8f5a17ef9e1391a
 2026-07-11 16:56:00,695 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 093b9f75d2c04a03b17b2865cb2f8364
 2026-07-11 16:56:02,119 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: d5dfc308aafa4867bfcf77b8f64753af
+2026-07-12 09:37:30,019 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 4ef2ca74abc84a4fb1e6d1214fde3ffe
+2026-07-12 09:37:30,020 - INFO - __main__ - Training completed successfully
+2026-07-12 09:55:49,868 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 2313bf7bca9a4530847f72adbaf08153
+2026-07-12 09:55:49,869 - INFO - __main__ - Training completed successfully
+2026-07-12 09:59:10,232 - INFO - src.monitoring.mlflow_tracking - MLflow run logged: 2bf889ef13154567a68c7f437773abd2
+2026-07-12 09:59:10,233 - INFO - __main__ - Training completed successfully

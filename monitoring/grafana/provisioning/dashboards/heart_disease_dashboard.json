@@ -1,83 +1,94 @@
 {
-  "dashboard": {
-    "id": null,
-    "uid": "heart-disease-api",
-    "title": "Heart Disease API Monitoring",
-    "tags": ["heart-disease", "api", "metrics"],
-    "timezone": "browser",
-    "schemaVersion": 38,
-    "version": 1,
-    "refresh": "15s",
-    "panels": [
-      {
-        "type": "timeseries",
-        "title": "Request Rate (1m)",
-        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
-        "fieldConfig": {
-          "defaults": {
-            "unit": "req/s",
-            "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 10}, {"color": "red", "value": 20}]}
-          }
-        },
-        "targets": [
-          {
-            "expr": "increase(http_requests_total[1m])",
-            "refId": "A"
-          }
-        ]
-      },
-      {
-        "type": "timeseries",
-        "title": "Total Requests",
-        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
-        "fieldConfig": {
-          "defaults": {
-            "unit": "short"
-          }
-        },
-        "targets": [
-          {
-            "expr": "http_requests_total",
-            "refId": "A"
-          }
-        ]
-      },
-      {
-        "type": "stat",
-        "title": "API Target Up",
-        "gridPos": {"x": 0, "y": 8, "w": 6, "h": 6},
-        "fieldConfig": {
-          "defaults": {
-            "unit": "short",
-            "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": 0}, {"color": "green", "value": 1}]}
-          }
-        },
-        "targets": [
-          {
-            "expr": "up{job=\"heart-disease-api\"}",
-            "refId": "A"
-          }
-        ]
-      },
-      {
-        "type": "stat",
-        "title": "Prometheus Target Up",
-        "gridPos": {"x": 6, "y": 8, "w": 6, "h": 6},
-        "fieldConfig": {
-          "defaults": {
-            "unit": "short",
-            "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": 0}, {"color": "green", "value": 1}]}
-          }
-        },
-        "targets": [
-          {
-            "expr": "up{job=\"prometheus\"}",
-            "refId": "A"
-          }
-        ]
-      }
-    ]
+  "id": null,
+  "uid": "heart-disease-api",
+  "title": "Heart Disease API Monitoring",
+  "tags": ["heart-disease", "api", "metrics"],
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "15s",
+  "time": {
+    "from": "now-2h",
+    "to": "now"
   },
-  "folderId": 0,
-  "overwrite": true
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Request Rate (1m)",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "req/s"
+        }
+      },
+      "targets": [
+        {
+          "expr": "increase(http_requests_total[1m])",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Requests",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "targets": [
+        {
+          "expr": "http_requests_total",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "API Target Up",
+      "gridPos": {"x": 0, "y": 8, "w": 6, "h": 6},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "red"},
+              {"value": 1, "color": "green"}
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "up{job=\"heart-disease-api\"}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Prometheus Target Up",
+      "gridPos": {"x": 6, "y": 8, "w": 6, "h": 6},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "red"},
+              {"value": 1, "color": "green"}
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "up{job=\"prometheus\"}",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
 }

@@ -18,6 +18,8 @@ def main():
             y_true=payload["evaluation"]["y_true"],
             y_pred=payload["evaluation"]["y_pred"],
             y_prob=payload["evaluation"]["y_prob"],
+            preprocessor=payload["preprocessor"],
+            feature_columns=payload["feature_columns"],
         )
         logger.info("Training completed successfully")
         return payload

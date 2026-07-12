@@ -1,6 +1,9 @@
 import sys
 from pathlib import Path
 
+import joblib
+import pandas as pd
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from fastapi.testclient import TestClient
@@ -66,6 +69,22 @@ def test_model_training_writes_model_artifact(tmp_path):
     payload = trainer.train()
     assert model_path.exists()
     assert payload["metrics"]["accuracy"] > 0.7
+
+
+def test_saved_model_artifact_contains_reproducible_pipeline(tmp_path):
+    model_path = tmp_path / "reproducible_model.joblib"
+    trainer = ModelTrainer(model_path=str(model_path))
+    trainer.train()
+
+    payload = joblib.load(model_path)
+    assert "pipeline" in payload
+    feature_columns = payload["feature_columns"]
+    sample = pd.DataFrame(
+        [[63.0, 1.0, 1.0, 145.0, 233.0, 1.0, 2.0, 150.0, 0.0, 2.3, 3.0, 0.0, 6.0]],
+        columns=feature_columns,
+    )
+    prediction = payload["pipeline"].predict(sample)
+    assert prediction[0] in {0, 1}
 
 
 def test_feature_selection_reduces_features():

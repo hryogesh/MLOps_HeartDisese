@@ -30,3 +30,26 @@ kubectl apply -f deployment.yaml
 kubectl get pods
 kubectl get svc
 ```
+
+## Monitoring Proof
+```bash
+docker compose -f monitoring/docker-compose.monitoring.yml up -d
+```
+
+Then open:
+- http://127.0.0.1:9090 for Prometheus
+- http://127.0.0.1:3000 for Grafana
+- http://127.0.0.1:3000/d/heart-disease-api/heart-disease-api-monitoring for the dashboard
+- http://127.0.0.1:8001/metrics for API metrics
+
+Prometheus last-2-hour query example:
+```bash
+start=$(date -u -v -2H +%s)
+end=$(date -u +%s)
+
+curl -G 'http://127.0.0.1:9090/api/v1/query_range' \
+  --data-urlencode 'query=increase(http_requests_total[1m])' \
+  --data-urlencode "start=$start" \
+  --data-urlencode "end=$end" \
+  --data-urlencode 'step=60'
+```
